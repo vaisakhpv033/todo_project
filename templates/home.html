@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+                <div class="banner-text">
+                    <h1>ToDo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-md-7">
+            <div class="text-center text-uppercase mb-4" style="width: 400px;">
+                <h3>Tasks to be completed</h3>
+            </div>
+            {% for i in task %}
+            <div class="shadow card mb-2 mx-auto">
+                <div class="card-body">
+                    <p class="font-weight-bold">{{i.priority}}</p>
+                    <h5 class="card-title">{{i.task_name}}</h5>
+                    <a class="btn btn-danger" href="{% url 'todoapp:delete' i.id %}">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-5">
+            <div class="shadow px-4  mb-5 bg-white rounded">
+                <div class="font-weight-bold pt-4">
+                    <p>Add Task</p>
+                </div>
+                <div class="container-fluid pb-2">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="task" placeholder="Enter your task name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="priority" placeholder="Enter the task priority">
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-success px-5">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
